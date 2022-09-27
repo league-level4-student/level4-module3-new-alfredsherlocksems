@@ -31,12 +31,20 @@ public class SpiesOnATrain {
     	Node<TrainCar> next = train.getHead();
     	TrainCar car;
     	ArrayList<Suspects> sus = new ArrayList<Suspects>();
-
+    	while (next != null) {
+    	      car = next.getValue();
+    	      String name = car.toString();
+    	      sus.add(new Suspects(name));
+    	      next = next.getNext();
+    	      System.out.println(name);
+    	}
+    	next = train.getHead();
         while (next != null) {
 
             car = next.getValue();
             String quote = car.questionPassenger();
-            String name = car.toString();
+            
+           
             int temp = 0;
             temp = quote.indexOf("I saw ");
             temp += 6;
@@ -46,31 +54,34 @@ public class SpiesOnATrain {
             String suspect = nameSeperation[0]; // find code to make it equal to suspect
             StringBuilder b = new StringBuilder(evidence);
             b.replace(b.length() - 1, b.length(), "");
-            b.replace(0, suspect.length(), "");
+            b.replace(0, suspect.length() + 1, "");
             evidence = b.toString();
             System.out.println(evidence);
-            
-            sus.add(new Suspects(name));
+            System.out.println(suspect);
+       
             
             for (int i = 0; i < clues.length; i++)
             if (evidence.equals(clues[i])) {
-            	for(int j = 0; j < sus.size(); j++) {
+            	for (int j = 0; j < sus.size(); j++) {
             		if (sus.get(j).getName().equals(suspect)) {
             			sus.get(j).addMention();
             		}
             	}
+            	
             }
             next = next.getNext();
-
+            
         }
         int highestMentionIndex = 0;
-        for (int i = 1; i < sus.size(); i++) {
+        for (int i = 0; i < sus.size(); i++) {
+        	System.out.println(sus.get(i).getMentions());
         	if (sus.get(i).getMentions() > sus.get(highestMentionIndex).getMentions()) {
         		highestMentionIndex = i;
         	}
         }
 
         System.out.println();
+        System.out.println("The suspect is " + sus.get(highestMentionIndex).getName());
     	return sus.get(highestMentionIndex).getName();
 
     }
