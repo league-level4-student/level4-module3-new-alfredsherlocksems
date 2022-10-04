@@ -76,13 +76,17 @@ public class RainbowZombieCongaLine {
      */
     public void youAreDone(Zombie dancer) {
     	Node<Zombie> next = congaLine.getHead();
+    	Node<Zombie> prev = congaLine.getHead();
     	while (next != null) {
     		Zombie z = next.getValue();
     		if (z.getZombieHatColor() == dancer.getZombieHatColor())  { //may need to be .equals not sure
-    			
+    			next = next.getNext();
+    			prev.setNext(next);
+    			next.setPrev(prev);
+    			break;
     		}
     		next = next.getNext();
-    		
+    		prev = prev.getNext();
     	}
     }
 
@@ -91,7 +95,40 @@ public class RainbowZombieCongaLine {
      * add one to the front, one to the end and one in the middle.
      */
     public void brains(Zombie dancer) {
-
+    	Node<Zombie> next = congaLine.getHead();
+    	Node<Zombie> prev = congaLine.getHead();
+    	
+    	Zombie a = new Zombie(dancer.getZombieHatColor());
+    	Zombie b = new Zombie(dancer.getZombieHatColor());
+    	Node<Zombie> node = new Node<Zombie>(b);
+    	Node<Zombie> front = new Node<Zombie>(a);
+    	
+    	double middle = congaLine.size() / 2;
+    	int compare = congaLine.size() / 2;
+    	double convert = compare;
+    	if (middle != convert) {
+    		middle = convert--;
+    	}
+    	for (int i = 0; i < middle - 1; i++) {
+    		prev = prev.getNext();
+    		next = next.getNext();
+    		if(i == middle - 2) {
+    			next = next.getNext();
+    			node.setNext(next);
+    			node.setPrev(prev);
+    			prev.setNext(node);
+    			next.setPrev(node);
+    		}
+    	}
+    	next = congaLine.getHead();
+    	prev = congaLine.getHead();
+    	next = next.getNext();
+    	next.setPrev(prev);
+    	prev.setNext(next);
+    	congaLine.setHead(front);
+    	front.setNext(prev);
+    	
+    	congaLine.add(dancer);
     }
 
     /*
@@ -99,7 +136,18 @@ public class RainbowZombieCongaLine {
      * color to the end of the line.
      */
     public void rainbowBrains(Zombie dancer) {
+  
+    	Node<Zombie> front = new Node<Zombie>(dancer);
 
+    
+    	congaLine.setHead(front);
+    	congaLine.print();
+    	ZombieHatColor[] hatColors = ZombieHatColor.values();
+    	
+    
+    	for (int i = 0; i < hatColors.length; i++) {
+    		congaLine.add(new Zombie(hatColors[i]));
+    	}
     }
 
     public LinkedList<Zombie> getCongaLine() {
