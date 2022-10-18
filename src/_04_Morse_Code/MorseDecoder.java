@@ -1,5 +1,7 @@
 package _04_Morse_Code;
 
+import javax.swing.JOptionPane;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
 
 public class MorseDecoder {
@@ -65,6 +67,19 @@ public class MorseDecoder {
      */
     void decode() {
         String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+        String word = "";
+        String[] a = morseCode.split(" ");
+        for (int i = 0; i < a.length; i++) {
+        	MorseCode m = new MorseCode(a[i]);
+        	System.out.print(mcTree.search(m).getValue().getDecoded());
+        }
+        String morse = JOptionPane.showInputDialog("what would you like to be translated?");
+        String[] array = morse.split(" ");
+        for (int i = 0; i < array.length; i++) {
+        MorseCode m = new MorseCode(array[i]);
+        word = word + mcTree.search(m).getValue().getDecoded();
+        }
+        JOptionPane.showMessageDialog(null, word);
     }
 
 }

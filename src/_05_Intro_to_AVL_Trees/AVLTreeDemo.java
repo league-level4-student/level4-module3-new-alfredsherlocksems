@@ -31,7 +31,18 @@ public class AVLTreeDemo {
      */
 
     public static void main(String[] args) {
-
+    	BinaryTree<Integer> binary = new BinaryTree<Integer>();
+    	AVLTree<Integer> avl = new AVLTree<Integer>();
+    	for (int i = 0; i < 11; i++) {
+    		binary.insert(i);
+    		avl.insert(i);
+    	}
+    	binary.insert(25);
+    	avl.insert(25);
+    	binary.insert(-10);
+    	avl.insert(-10);
+    	binary.printVertical();
+    	avl.printVertical();
     }
 
 }
