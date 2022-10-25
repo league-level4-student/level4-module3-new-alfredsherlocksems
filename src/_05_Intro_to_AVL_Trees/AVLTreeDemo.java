@@ -42,7 +42,9 @@ public class AVLTreeDemo {
     	binary.insert(-10);
     	avl.insert(-10);
     	binary.printVertical();
+    	binary.printHorizontal();
     	avl.printVertical();
+    	avl.printHorizontal();
     }
 
 }
